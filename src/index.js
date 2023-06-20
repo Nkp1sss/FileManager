@@ -1,15 +1,27 @@
-import { stdin, stdout } from 'process';
+import readline from "readline/promises";
 
 const username = process.argv.find((arg) => arg.startsWith('--username')).split('=')[1];
 console.log(`Welcome to the File Manager, ${username}!`);
 
-stdin.on('data',  data => {
-  data.toString().trim() === '.exit' && exit();
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
-process.on('SIGINT', () => exit());
+rl.on("line", (line) => {
+  switch (line.trim()) {
+    case '.exit':
+      exit();
+      break;
+    default:
+      break;
+  }
+  // console.log(`You are currently in ${process.cwd()}`);
+});
+
+rl.on("SIGINT", () => exit());
 
 const exit = () => {
-  stdout.write(`Thank you for using File Manager, ${username}, goodbye!\n`);
-  process.exit();
-};
+  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+  rl.close();
+}
