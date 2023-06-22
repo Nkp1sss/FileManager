@@ -3,6 +3,7 @@ import os from 'os';
 
 import { getNameByArg } from './utils/index.js';
 import { ls } from "./navigation/ls.js";
+import { cd } from "./navigation/cd.js";
 
 const username = getNameByArg(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
@@ -20,15 +21,17 @@ const exit = () => {
 }
 
 rl.on("line", async (line) => {
-  switch (line.trim()) {
-    case '.exit':
-      exit();
-      return;
-    case 'ls':
-      await ls();
-      break;
-    default:
-      break;
+  line = line.trim();
+
+  if (line === '.exit') {
+    exit();
+    return;
+  } else if (line === 'ls') {
+    await ls();
+  } else if (line.startsWith('cd ')) {
+    await cd(line.split(' ')[1]);
+  } else {
+    console.log('Invalid input');
   }
 
   console.log(`You are currently in ${process.cwd()}`);
