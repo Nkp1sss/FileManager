@@ -4,6 +4,7 @@ import os from 'os';
 import { getNameByArg } from './utils/index.js';
 import { ls } from "./navigation/ls.js";
 import { cd } from "./navigation/cd.js";
+import { up } from "./navigation/up.js";
 
 const username = getNameByArg(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
@@ -30,6 +31,8 @@ rl.on("line", async (line) => {
     await ls();
   } else if (line.startsWith('cd ')) {
     await cd(line.split(' ')[1]);
+  } else if (line === 'up') {
+    up();
   } else {
     console.log('Invalid input');
   }
