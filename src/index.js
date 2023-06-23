@@ -6,6 +6,7 @@ import { ls } from "./navigation/ls.js";
 import { cd } from "./navigation/cd.js";
 import { up } from "./navigation/up.js";
 import { cat } from "./operations/cat.js";
+import { add } from "./operations/add.js"
 
 const username = getName(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
@@ -30,7 +31,6 @@ rl.on("line", async (line) => {
     case '.exit':
       exit();
       return;
-      break;
     case 'ls':
       await ls();
       break;
@@ -42,6 +42,9 @@ rl.on("line", async (line) => {
       break;
     case 'cat':
       await cat(arg1);
+      break;
+    case 'add':
+      await add(arg1);
       break;
     default:
       console.log('Invalid input')
