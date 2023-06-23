@@ -1,12 +1,13 @@
 import readline from "readline/promises";
 import os from 'os';
 
-import { getNameByArg } from './utils/index.js';
+import { getName } from './utils/getName.js';
 import { ls } from "./navigation/ls.js";
 import { cd } from "./navigation/cd.js";
 import { up } from "./navigation/up.js";
+import { cat } from "./operations/cat.js";
 
-const username = getNameByArg(process.argv);
+const username = getName(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
 process.chdir(os.homedir());
 console.log(`You are currently in ${process.cwd()}`);
@@ -23,18 +24,28 @@ const exit = () => {
 
 rl.on("line", async (line) => {
   line = line.trim();
+  const [command, arg1, arg2] = line.split(' ');
 
-  if (line === '.exit') {
-    exit();
-    return;
-  } else if (line === 'ls') {
-    await ls();
-  } else if (line.startsWith('cd ')) {
-    await cd(line.split(' ')[1]);
-  } else if (line === 'up') {
-    up();
-  } else {
-    console.log('Invalid input');
+  switch (command) {
+    case '.exit':
+      exit();
+      return;
+      break;
+    case 'ls':
+      await ls();
+      break;
+    case 'cd':
+      await cd(arg1);
+      break;
+    case 'up':
+      await up();
+      break;
+    case 'cat':
+      await cat(arg1);
+      break;
+    default:
+      console.log('Invalid input')
+      break;
   }
 
   console.log(`You are currently in ${process.cwd()}`);
