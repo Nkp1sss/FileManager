@@ -4,7 +4,7 @@ import path from 'path';
 const rn = async (oldPathTo = '', newPathTo = '') => {
   const oldPathToFile = path.join(process.cwd(), oldPathTo);
   const newPathToFile = path.join(process.cwd(), newPathTo);
-  if ((oldPathTo && newPathTo) && !path.extname(newPathToFile)) {
+  if (!(oldPathTo && newPathTo) && !path.extname(newPathToFile)) {
     console.log('Invalid input');
     return;
   }
