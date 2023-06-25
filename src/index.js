@@ -11,6 +11,7 @@ import { rn } from "./operations/rn.js";
 import { cp } from "./operations/cp.js";
 import { mv } from "./operations/mv.js";
 import { rm } from "./operations/rm.js";
+import { osInfo } from "./os/index.js";
 
 const username = getName(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
@@ -61,6 +62,9 @@ rl.on("line", async (line) => {
       break;
     case 'rm':
       rm(arg1);
+      break;
+    case 'os':
+      osInfo(arg1);
       break;
     default:
       console.log('Invalid input')
