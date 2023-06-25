@@ -12,6 +12,9 @@ import { cp } from "./operations/cp.js";
 import { mv } from "./operations/mv.js";
 import { rm } from "./operations/rm.js";
 import { osInfo } from "./os/index.js";
+import { hash } from "./hash/hash.js";
+import { compress } from "./zlib/compress.js";
+import { decompress } from "./zlib/decompress.js";
 
 const username = getName(process.argv);
 console.log(`Welcome to the File Manager, ${username}!\n`);
@@ -65,6 +68,15 @@ rl.on("line", async (line) => {
       break;
     case 'os':
       osInfo(arg1);
+      break;
+    case 'hash':
+      await hash(arg1);
+      break;
+    case 'compress':
+      await compress(arg1, arg2);
+      break;
+    case 'decompress':
+      await decompress(arg1, arg2);
       break;
     default:
       console.log('Invalid input')

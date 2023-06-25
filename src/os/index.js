@@ -20,6 +20,7 @@ const osInfo = (arg) => {
       console.log(os.arch());
       break;
     default:
+      console.log('Invalid input');
       break;
   }
 }
